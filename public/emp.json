@@ -1,0 +1,27 @@
+[
+    {
+      "_id": "1",
+      "img": "src/assets/images/team/1.jpg",
+      "employee_Name": "John Doe",
+      "position": "Senior Automotive Engineer",
+      "experience_years": 10,
+      "job_description": "Leads the design and development of automotive systems and components, ensuring high performance and compliance with industry standards."
+    },
+    {
+      "_id": "2",
+      "img": "src/assets/images/team/2.jpg",
+      "employee_Name": "Jane Smith",
+      "position": "Mechanical Engineer",
+      "experience_years": 7,
+      "job_description": "Responsible for designing, analyzing, and testing mechanical systems and components within automobiles to improve performance and safety."
+    },
+    {
+      "_id": "3",
+      "img": "src/assets/images/team/3.jpg",
+      "employee_Name": "Robert Johnson",
+      "position": "Automotive Software Developer",
+      "experience_years": 5,
+      "job_description": "Develops and maintains software systems for vehicle control and diagnostics, ensuring integration with hardware and compliance with industry regulations."
+    }
+  ]
+  

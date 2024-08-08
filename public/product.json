@@ -1,0 +1,45 @@
+[
+    {
+      "_id": "1",
+      "title": "Car Engine Oil",
+      "img": "src/assets/images/products/1.png",
+      "price": 29.99,
+      "description": "High performance synthetic engine oil suitable for all types of vehicles."
+    },
+    {
+      "_id": "2",
+      "title": "Car Battery",
+      "img": "src/assets/images/products/2.png",
+      "price": 129.99,
+      "description": "12V car battery with high cold cranking amps for reliable starting power."
+    },
+    {
+      "_id": "3",
+      "title": "All-Season Tires",
+      "img": "src/assets/images/products/3.png",
+      "price": 89.99,
+      "description": "Durable all-season tires designed for improved traction and fuel efficiency."
+    },
+    {
+      "_id": "4",
+      "title": "Car Air Filter",
+      "img": "src/assets/images/products/4.png",
+      "price": 19.99,
+      "description": "High-quality air filter for enhanced engine performance and longevity."
+    },
+    {
+      "_id": "5",
+      "title": "Brake Pads",
+      "img": "src/assets/images/products/5.png",
+      "price": 45.99,
+      "description": "Premium brake pads for smooth and reliable braking performance."
+    },
+    {
+      "_id": "6",
+      "title": "Windshield Wipers",
+      "img": "src/assets/images/products/6.png",
+      "price": 15.99,
+      "description": "Durable windshield wipers for clear visibility in all weather conditions."
+    }
+  ]
+  
