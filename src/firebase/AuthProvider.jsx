@@ -1,9 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import app from "./firebase.config";
 import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import axios from "axios";
 
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 const auth = getAuth(app)
 const GoogleProvider = new GoogleAuthProvider();
 const GithubProvider = new GithubAuthProvider();
@@ -38,9 +39,24 @@ const AuthProvider = ({ children }) => {
 
     useEffect(()=>{
        const unsubscribe = onAuthStateChanged(auth, currentUser=>{
+        const userEmail = currentUser?.email || user?.email;
+        const loggedUser = {email: userEmail};
            setUser(currentUser);
-           console.log('current user is ', currentUser)
+        //    console.log('current user is ', currentUser)
             setloading(false);
+            // if user exist issue a token
+            if(currentUser){                
+                axios.post('https://mycardocserver02.vercel.app/jwt', loggedUser, {withCredentials:true})
+                .then(res =>{
+                    console.log('token responce from client: ', res.data);
+                })
+            }
+            else{
+                axios.post('https://mycardocserver02.vercel.app/logout', loggedUser, {withCredentials:true})
+                .then(res =>{
+                    console.log(res.data);
+                })
+            }
         })
         return ()=>{
            return unsubscribe(); 

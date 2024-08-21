@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import moment from 'moment';
-import { useContext } from 'react';
-import { AuthContext } from '../../firebase/AuthProvider';
+import useAuth from '../../Hooks/useAuth';
+// import { useContext } from 'react';
+// import { AuthContext } from '../../firebase/AuthProvider';
 
 const Navitems = () => {
-    const { logout, user } = useContext(AuthContext);
+    const{logout, user} = useAuth();  //using useAuth hook
+    // const { logout, user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handlelogout = () => {
@@ -55,6 +57,7 @@ const Navitems = () => {
                         </li>
                         <li><Link to={'/'}>Blogs</Link></li>
                         <li><Link to={'/'}>Contacts</Link></li>
+                        <li><Link to={'/customer'}>Orders</Link></li>
 
                     </ul>
                 </div>
@@ -65,6 +68,7 @@ const Navitems = () => {
                 <ul className="menu menu-horizontal px-1 text-xl">
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/'}>About</Link></li>
+
                     <li>
                         <details>
                             <summary><Link to={'/'}>Services</Link></summary>
@@ -75,12 +79,21 @@ const Navitems = () => {
                             </ul>
                         </details>
                     </li>
-                    <li><Link to={'/'}>Blogs</Link></li>
-                    <li><Link to={'/'}>Contacts</Link></li>
+                    {
+                        user?.email ? <>
+
+                            <li><Link to={'/customer'}>Orders</Link></li>
+                            <li><Link to={'/'}>Blogs</Link></li>
+                        </> : <> <li><Link to={'/'}>Blogs</Link></li>
+                            <li><Link to={'/'}>Contacts</Link></li></>
+                    }
                 </ul>
             </div>
             <div className="navbar-end">
                 {/* cart logo starts*/}
+                <div className="">
+                    {user?.email}
+                </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">

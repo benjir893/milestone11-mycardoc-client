@@ -2,15 +2,22 @@
 import { useEffect, useState } from "react";
 import Servicedetails from "./Servicedetails";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
 
 const Ourservices = () => {
     const [services, setServices] = useState([])
+
+    const url = 'https://mycardocserver02.vercel.app/services';
     useEffect(()=>{
-        fetch('services.json')
-        .then(res =>res.json())
-        .then(data => setServices(data))
+        axios.get(url)
+        .then(res =>{
+            setServices(res.data)
+        })
+        // fetch('https://mycardocserver02.vercel.app/services')
+        // .then(res =>res.json())
+        // .then(data => setServices(data))
     },[])
     return (
         <div>
@@ -21,7 +28,7 @@ const Ourservices = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                {
-                services.map(service =><Servicedetails key={service._id} service={service}></Servicedetails>)
+                services?.map(service =><Servicedetails key={service._id} service={service}></Servicedetails>)
                }
             </div>
             <div className="w-full text-center m-10">

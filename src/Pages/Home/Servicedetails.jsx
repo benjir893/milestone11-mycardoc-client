@@ -15,7 +15,7 @@ const Servicedetails = ({ service }) => {
                 <h2 className="card-title">Price: {price}</h2>
                 {/* <p>About Service: {description}</p> */}
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary bg-orange-500">Book Now</button>
+                    <Link to={`/checkout/${_id}`}><button className="btn btn-primary bg-orange-500">Book Now</button></Link>
                 </div>
             </div>
             

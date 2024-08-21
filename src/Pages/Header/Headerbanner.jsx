@@ -5,6 +5,9 @@ import Marquee from "react-fast-marquee";
 const Headerbanner = () => {
     return (
         <div >
+            <div className="text-center mb-10                                                                                                                                                                                                                                                                                                   ">
+                <h1 className='text-orange-600 font-bold font-Gupta mb-3'>Meet Our Parters</h1>
+            </div> 
             <Marquee className="w-full h-40">
                 <p className="w-40 h-40 relative mr-2">
                     <img className="w-40 h-32" src="src/assets/images/about_us/parts.jpg" alt="" />

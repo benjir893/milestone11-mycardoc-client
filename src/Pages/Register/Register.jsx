@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../firebase/AuthProvider";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -16,13 +20,22 @@ const Register = () => {
         console.log(user)
 
         createUser(email, password)
-        .then(usercredential =>{
-            const user = usercredential.user;
-            console.log(user);
-        })
-        .then(error =>{
-            console.error(error)
-        })
+            .then(usercredential => {
+                const loggeduser = usercredential.user;
+                console.log(loggeduser)
+                const user = { email };
+
+                axios.post('https://mycardocserver02.vercel.app/jwt', user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data.success) {
+                            navigate(location?.state ? location?.state : '/')
+                        }
+                    })
+            })
+            .then(error => {
+                console.error(error)
+            })
 
     }
     return (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Ourteamcard = ({ team }) => {
     const { employee_Name, img, position, experience_years, job_description } = team;
+
     return (
         <div className="card bg-base-100 w-96 shadow-xl mt-10 mb-10">
             <figure>

@@ -1,61 +1,69 @@
-import { useContext } from "react";
+// import { useContext } from "react";
+// import { AuthContext } from "../../firebase/AuthProvider";
 import { Helmet } from "react-helmet";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../firebase/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import useAuth from "../../Hooks/useAuth";
 
 
 const Login = () => {
-    const{logwithGoogle, loginwithEmailandPassword, loginwithGithub} = useContext(AuthContext) 
-    const navitage = useNavigate()
+    // const { logwithGoogle, loginwithEmailandPassword, loginwithGithub } = useContext(AuthContext);
+    const {logwithGoogle, loginwithEmailandPassword, loginwithGithub} = useAuth(); //using useAuth hook
+    const location = useLocation();
+    const navitage = useNavigate();
 
-    const handleLogin=e=>{
+    const handleLogin = e => {
         e.preventDefault();
 
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        const user = {email, password};
-        console.log(user);
+        // const user = {email, password};
+        // console.log(user);
 
         loginwithEmailandPassword(email, password)
-        .then(usecredential =>{
-            const user = usecredential.user;
-            console.log(user);
-            navitage('/')
-        })
-        .then(error =>{
-            console.error(error)
-        })
+            .then(usecredential => {
+                const loggeduser = usecredential.user;
+                console.log(loggeduser);
+                const user = { email };
+
+                axios.post('https://mycardocserver02.vercel.app/jwt', user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.success) {
+                            navitage(location?.state ? location?.state : '/')
+                        }
+                    })
+            })
+            .then(error =>
+                console.error(error)
+            )
 
     }
 
-    const handleGoogleLogin = e =>{
+    const handleGoogleLogin = e => {
         e.preventDefault();
 
         logwithGoogle()
-        .then(usercredential =>{
-            const user = usercredential.user;
-            console.log(user)
-            navitage('/')
-        })
-        .then(error =>{
-            console.error(error)
-        })
+            .then(usercredential => {
+                const user = usercredential.user;
+                console.log(user)
+                navitage(location?.state ? location?.state : '/')
+            })
+            .then(error => console.error(error))
 
     }
 
-    const handleGithubLogin=e=>{
+    const handleGithubLogin = e => {
         e.preventDefault();
 
         loginwithGithub()
-        .then(usercredential =>{
-            const user = usercredential.user;
-            console.log(user);
-            navitage('/')
-        })
-        .then(error =>{
-            console.error(error)
-        })
+            .then(usercredential => {
+                const user = usercredential.user;
+                console.log(user);
+                navitage(location?.state ? location?.state : '/')
+            })
+            .then(error => console.error(error))
 
     }
     return (
@@ -89,8 +97,8 @@ const Login = () => {
                                     <Link to={'/register'}><button className="label-text-alt link link-hover">Forgot Password?</button></Link>
                                 </label>
                                 <label className="label">
-                                <button onClick={handleGoogleLogin} className="label-text-alt link link-hover">Login with Google</button>
-                                <button onClick={handleGithubLogin} className="label-text-alt link link-hover">Login with Github</button>
+                                    <button onClick={handleGoogleLogin} className="label-text-alt link link-hover">Login with Google</button>
+                                    <button onClick={handleGithubLogin} className="label-text-alt link link-hover">Login with Github</button>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
